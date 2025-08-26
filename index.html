@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halaman Awal</title>
+<style>
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer; /* tanda bisa diklik */
+    }
+    #bgGif {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain; /* menjaga rasio asli */
+        transition: opacity 1s ease;
+    }
+</style>
+</head>
+<body>
+
+<img id="bgGif" src="https://raw.githubusercontent.com/maul5826/yowes/refs/heads/main/fad9eecf2b974e59a75b2f9e6a7655d3.gif" alt="GIF">
+
+<script>
+const gif = document.getElementById('bgGif');
+let redirected = false;
+
+// Fungsi untuk pindah halaman dengan fade-out
+function goToPage2() {
+    if (redirected) return; // cegah double redirect
+    redirected = true;
+    gif.style.opacity = 0;
+    setTimeout(() => {
+        window.location.href = "page2.html";
+    }, 1000); // 1 detik fade
+}
+
+// Klik di mana saja → langsung ke halaman kedua
+document.body.addEventListener('click', goToPage2);
+
+// Auto redirect setelah 10 detik jika tidak diklik
+setTimeout(goToPage2, 10000);
+</script>
+
+</body>
+</html>

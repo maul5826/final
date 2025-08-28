@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intro</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: system-ui, sans-serif;
+    }
+    .wrap {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      place-items: center;
+    }
+    .gif-box {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    .gif-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+    }
+    .overlay-click {
+      position: fixed;
+      inset: 0;
+      cursor: pointer;
+    }
+    .footer {
+      width: 100%;
+      padding: 12px 16px;
+      box-sizing: border-box;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.6) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    .btn-skip {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 20px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="gif-box">
+      <!-- Taruh file intro.gif di root repo, sejajar dengan index.html -->
+      <img src="intro.gif" alt="Intro">
+    </div>
+
+    <div class="overlay-click" id="overlay"></div>
+
+    <div class="footer">
+      <span><span id="cd">10</span> detik lagi…</span>
+      <a href="https://www.canva.com/design/DAGxUNRLpO8/qZbTleGAnHp_tzbrarra0g/edit?utm_content=DAGxUNRLpO8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" class="btn-skip">Lewati</a>
+    </div>
+  </div>
+
+  <script>
+    // Langsung ke link Canva kamu
+    const NEXT_URL = "https://www.canva.com/design/DAGxUNRLpO8/qZbTleGAnHp_tzbrarra0g/edit?utm_content=DAGxUNRLpO8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton";
+    const REDIRECT_AFTER_MS = 10000; // 10 detik
+
+    let redirected = false;
+    function go() {
+      if (redirected) return;
+      redirected = true;
+      window.location.href = NEXT_URL;
+    }
+
+    document.getElementById("overlay").addEventListener("click", go, { once: true });
+    document.addEventListener("keydown", go, { once: true });
+    setTimeout(go, REDIRECT_AFTER_MS);
+
+    // countdown
+    let remain = REDIRECT_AFTER_MS / 1000;
+    const cd = document.getElementById("cd");
+    const intv = setInterval(() => {
+      remain--;
+      if (remain <= 0) clearInterval(intv);
+      cd.textContent = remain;
+    }, 1000);
+  </script>
+</body>
+</html>
